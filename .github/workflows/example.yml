@@ -26,9 +26,11 @@ jobs:
         run: |
           echo ${{ steps.config.outputs.item }}
       - name: Print specific field using jq
-        run: jq '.commit' <<< '${{ steps.config.outputs.item }}'
+        run: |
+          jq '.commit' <<< '${{ steps.config.outputs.item }}'
       - name: Print specific field using built-ins
-        run: echo ${{ fromJSON(steps.config.outputs.item).commit }}
+        run: |
+          echo ${{ fromJSON(steps.config.outputs.item).commit }}
       - name: Delete DynamoDB Item
         uses: mooyoul/dynamodb-actions@v1.0.0
         env:
