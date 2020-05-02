@@ -1,0 +1,57 @@
+name: example
+on:
+  push:
+    branches:
+      - master
+jobs:
+  job:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Get DynamoDB Item
+        id: config
+        uses: mooyoul/dynamodb-actions@v1.0.0
+        env:
+          AWS_DEFAULT_REGION: us-east-1
+          AWS_REGION: us-east-1
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        with:
+          operation: get
+          region: us-east-1
+          table: dynamodb-actions-test
+          key: |
+            { key: "foo" }
+      - name: Print Value
+        run: jq '.commit' <<< ${{ steps.config.outputs.item }}
+      - name: Delete DynamoDB Item
+        uses: mooyoul/dynamodb-actions@v1.0.0
+        env:
+          AWS_DEFAULT_REGION: us-east-1
+          AWS_REGION: us-east-1
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        with:
+          operation: delete
+          region: us-east-1
+          table: dynamodb-actions-test
+          key: |
+            { key: "foo" }
+      - name: Put DynamoDB Item
+        uses: mooyoul/dynamodb-actions@v1.0.0
+        env:
+          AWS_DEFAULT_REGION: us-east-1
+          AWS_REGION: us-east-1
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        with:
+          operation: delete
+          region: us-east-1
+          table: dynamodb-actions-test
+          item: |
+            {
+              key: "foo",
+              value: "wow",
+              awesome: true,
+              stars: 12345
+            }
