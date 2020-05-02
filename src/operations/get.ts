@@ -7,6 +7,7 @@ const InputSchema = Joi.object({
   region: Joi.string().lowercase().required(),
   table: Joi.string().required(),
   key: Joi.object().pattern(/./, Joi.alternatives().try(Joi.string(), Joi.number())).min(1).max(2).required(),
+  consistent: Joi.boolean().default(false).optional(),
 }).required();
 
 interface GetOperationInput {
@@ -14,6 +15,7 @@ interface GetOperationInput {
   region: string;
   table: string;
   key: { [key: string]: string | number };
+  consistent: boolean;
 }
 
 export class GetOperation implements Operation<GetOperationInput> {
@@ -35,6 +37,7 @@ export class GetOperation implements Operation<GetOperationInput> {
     const res = await ddb.get({
       TableName: input.table,
       Key: input.key,
+      ConsistentRead: !!input.consistent,
     }).promise();
 
     return { item: JSON.stringify(res.Item) };

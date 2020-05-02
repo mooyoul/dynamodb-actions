@@ -12,6 +12,7 @@ const processor = new Processor();
     table: core.getInput("table"),
     key: forgivingJSONParse(core.getInput("key")),
     item: forgivingJSONParse(core.getInput("item")),
+    consistent: forgivingJSONParse(core.getInput("consistent")),
   };
 
   const output = await processor.process(input);

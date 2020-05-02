@@ -17,6 +17,9 @@ inputs:
   item:
     description: 'Item Value, Only required for put operation'
     required: false
+  consistent:
+    description: 'Enable consistent read'
+    required: false
 outputs:
   item:
     description: 'JSON-serialized Item'

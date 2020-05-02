@@ -55,9 +55,8 @@ type GetItemInput = {
   operation: "get";
   region: string;
   table: string;
-  key: { 
-    [key: string]: string | number;
-  };
+  key: string; // JSON-serialized key
+  consistent?: boolean;
 }
 ```
 
@@ -107,9 +106,7 @@ type PutItemInput = {
   operation: "put";
   region: string;
   table: string;
-  item: { 
-    [key: string]: any;
-  };
+  item: string; // JSON-serialized item
 }
 ```
 
@@ -153,9 +150,7 @@ type DeleteItemInput = {
   operation: "delete";
   region: string;
   table: string;
-  key: { 
-    [key: string]: string | number;
-  };
+  key: string; // JSON-serialized key
 }
 ```
 
@@ -187,7 +182,6 @@ For example:
 
 ## Wishlist
 
-- Add Consistent Read option to get operation
 - Add UpdateItem operation
 - Add conditional writes (e.g. putItem / updateItem)
 

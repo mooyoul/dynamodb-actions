@@ -51,6 +51,7 @@ describe(GetOperation.name, () => {
           key: {
             key: "foo",
           },
+          consistent: false,
         });
       });
     });
@@ -65,6 +66,7 @@ describe(GetOperation.name, () => {
             region: DYNAMODB_ENDPOINT,
             table: tableName,
             key: { unknownKey: "123" },
+            consistent: false,
           }),
         );
 
@@ -92,6 +94,7 @@ describe(GetOperation.name, () => {
           key: {
             key: "foo",
           },
+          consistent: false,
         });
 
         expect(res).to.deep.eq({
@@ -111,6 +114,7 @@ describe(GetOperation.name, () => {
           key: {
             key: "foo",
           },
+          consistent: true,
         });
 
         expect(res).to.deep.eq({
