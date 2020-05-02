@@ -20,7 +20,7 @@ jobs:
         uses: mooyoul/tslint-actions@v1.1.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          pattern: '*.ts'
+          pattern: '{src,test}/**/*.ts'
       - name: Build
         run: npm run build
       - name: Test

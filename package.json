@@ -4,9 +4,9 @@
   "description": "GitHub action that integrates with Amazon DynamoDB",
   "main": "index.js",
   "scripts": {
-    "test": "AWS_ACCESS_KEY_ID=fake AWS_SECRET_ACCESS_KEY=fake mocha -r ts-node/register -t 300000 index.spec.ts",
+    "test": "AWS_ACCESS_KEY_ID=fake AWS_SECRET_ACCESS_KEY=fake mocha -r ts-node/register -t 300000 'test/**/*.ts'",
     "build": "tsc",
-    "lint": "tslint *.ts"
+    "lint": "tslint '{src,test}/**/*.ts'"
   },
   "repository": {
     "type": "git",
