@@ -12,6 +12,8 @@ Inspired from [DynamoDB integration in AWS Step Functions](https://docs.aws.amaz
 
 -----
 
+![Example](./assets/example.png)
+
 ## Supported Operations
 
 ### Get Item
@@ -165,7 +167,29 @@ None
 
 #### How to select specific field?
 
-Use [jq](https://stedolan.github.io/jq/). [Github-hosted runners already have pre-installed jq.](https://help.github.com/en/actions/reference/software-installed-on-github-hosted-runners) You don't have to install that. 
+Use Github Actions built-in `fromJson` function.
+
+For example:
+```yaml
+- name: Print specific field
+  run: |
+    echo ${{ fromJson(steps.[id].outputs.item).[field] }}
+```
+
+Alternatively, You can also Use [jq](https://stedolan.github.io/jq/). [Github-hosted runners already have pre-installed jq.](https://help.github.com/en/actions/reference/software-installed-on-github-hosted-runners).
+
+For example:
+```yaml
+- name: Print specific field
+  run: |
+    jq '.field' <<< echo '${{ steps.[id].outputs.item }}'
+``` 
+
+## Wishlist
+
+- Add Consistent Read option to get operation
+- Add UpdateItem operation
+- Add conditional writes (e.g. putItem / updateItem)
 
 ## License
 
