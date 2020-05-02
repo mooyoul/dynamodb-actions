@@ -25,4 +25,3 @@ const processor = new Processor();
   console.error(e.stack); // tslint:disable-line
   core.setFailed(e.message);
 });
-
