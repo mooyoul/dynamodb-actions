@@ -44,7 +44,7 @@ jobs:
           key: |
             { key: "foo" }
       - name: Print Value
-        run: jq '.field' <<< ${{ steps.config.outputs.item }}
+        run: jq '.field' <<< '${{ steps.config.outputs.item }}'
 ```
 
 
@@ -171,7 +171,7 @@ For example:
     echo ${{ fromJson(steps.[id].outputs.item).[field] }}
 ```
 
-Alternatively, You can also Use [jq](https://stedolan.github.io/jq/). [Github-hosted runners already have pre-installed jq.](https://help.github.com/en/actions/reference/software-installed-on-github-hosted-runners).
+Alternatively, You can also use [jq](https://stedolan.github.io/jq/). [Github-hosted runners already have pre-installed jq.](https://help.github.com/en/actions/reference/software-installed-on-github-hosted-runners)
 
 For example:
 ```yaml
