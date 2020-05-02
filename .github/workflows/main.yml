@@ -17,10 +17,7 @@ jobs:
       - name: Prepare
         run: npm ci
       - name: Lint
-        uses: mooyoul/tslint-actions@v1.1.1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          pattern: '{src,test}/**/*.ts'
+        uses: npm run lint
       - name: Build
         run: npm run build
       - name: Test
