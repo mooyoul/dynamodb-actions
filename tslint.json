@@ -1,0 +1,15 @@
+{
+    "extends": ["@vingle/tslint-preset"],
+    "rules": {
+        "whitespace": true,
+        "type-literal-delimiter": true,
+        "ordered-imports": true,
+        "semicolon": [true, "always"],
+        "trailing-comma": [true, {
+            "multiline": "always",
+            "singleline": "never",
+            "esSpecCompliant": true
+        }],
+        "arrow-parens": true
+    }
+}

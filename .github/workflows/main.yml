@@ -1,0 +1,33 @@
+name: workflow
+on: push
+jobs:
+  job:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    services:
+      dynamodb:
+        image: amazon/dynamodb-local
+        # @note Github overwrites WORKDIR to repository path, so overwrite that again
+        options: >-
+          --workdir /home/dynamodblocal
+          --health-cmd "curl --fail http://127.0.0.1:8000/shell/ || exit 1" --health-interval 10s --health-timeout 5s --health-retries 5
+    steps:
+      - uses: actions/checkout@v1
+      - name: Prepare
+        run: npm ci
+      - name: Lint
+        uses: mooyoul/tslint-actions@master
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          pattern: '*.ts'
+      - name: Build
+        run: npm run build
+      - name: Test
+        run: npm test
+        env:
+          DYNAMODB_ENDPOINT: http://dynamodb:8000
+      - name: Publish
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        run: npx semantic-release
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
