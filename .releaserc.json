@@ -17,7 +17,7 @@
     }],
     "@semantic-release/github",
     ["@semantic-release/git", {
-      "assets": ["CHANGELOG.md", "index.js"]
+      "assets": ["CHANGELOG.md", "dist"]
     }]
   ]
 }
