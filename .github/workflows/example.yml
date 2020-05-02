@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: Get DynamoDB Item
         id: config
-        uses: mooyoul/dynamodb-actions@master
+        uses: mooyoul/dynamodb-actions@v1.1.3
         env:
           AWS_DEFAULT_REGION: us-east-1
           AWS_REGION: us-east-1
@@ -33,7 +33,7 @@ jobs:
         run: |
           jq '.commit' <<< '${{ steps.config.outputs.item }}'
       - name: Delete DynamoDB Item
-        uses: mooyoul/dynamodb-actions@master
+        uses: mooyoul/dynamodb-actions@v1.1.3
         env:
           AWS_DEFAULT_REGION: us-east-1
           AWS_REGION: us-east-1
@@ -46,7 +46,7 @@ jobs:
           key: |
             { key: "foo" }
       - name: Put DynamoDB Item
-        uses: mooyoul/dynamodb-actions@master
+        uses: mooyoul/dynamodb-actions@v1.1.3
         env:
           AWS_DEFAULT_REGION: us-east-1
           AWS_REGION: us-east-1
