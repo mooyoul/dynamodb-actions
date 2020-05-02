@@ -24,7 +24,7 @@ jobs:
             { key: "foo" }
       - name: Print item
         run: |
-          echo ${{ steps.config.outputs.item }}
+          echo '${{ steps.config.outputs.item }}'
       - name: Print specific field using built-ins
         run: |
           echo '${{ fromJson(steps.config.outputs.item).commit }}'
