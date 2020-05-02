@@ -22,7 +22,10 @@ jobs:
           table: dynamodb-actions-test
           key: |
             { key: "foo" }
-      - name: Print Value
+      - name: Print item
+        run: |
+          echo ${{ steps.config.outputs.item }}
+      - name: Print specific field
         run: jq '.commit' <<< ${{ steps.config.outputs.item }}
       - name: Delete DynamoDB Item
         uses: mooyoul/dynamodb-actions@v1.0.0
@@ -45,7 +48,7 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         with:
-          operation: delete
+          operation: put
           region: us-east-1
           table: dynamodb-actions-test
           item: |
