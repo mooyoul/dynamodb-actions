@@ -2,4 +2,4 @@
 
 set -e
 
-NODE_PATH=/var/task/node_modules node /var/task/dist/index.js
+NODE_PATH=/var/task/node_modules node /var/task/index.js
