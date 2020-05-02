@@ -54,6 +54,7 @@ jobs:
           item: |
             {
               key: "foo",
+              commit: "${{ github.sha }}"
               value: "wow",
               awesome: true,
               stars: 12345
