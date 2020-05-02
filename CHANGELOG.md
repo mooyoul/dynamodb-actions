@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/mooyoul/dynamodb-actions/compare/v1.1.1...v1.1.2) (2020-05-02)
+
+
+### Bug Fixes
+
+* **release:** fix broken build ([1da5103](https://github.com/mooyoul/dynamodb-actions/commit/1da51035bca41186480ca1bd379f8047f73a186e))
+
 ## [1.1.1](https://github.com/mooyoul/dynamodb-actions/compare/v1.1.0...v1.1.1) (2020-05-02)
 
 
