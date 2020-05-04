@@ -43,8 +43,15 @@ jobs:
           table: my-awesome-config
           key: |
             { key: "foo" }
-      - name: Print Value
-        run: jq '.field' <<< '${{ steps.config.outputs.item }}'
+      - name: Print item
+        run: |
+          echo '${{ steps.config.outputs.item }}'
+      - name: Print specific field using built-in function
+        run: |
+          echo '${{ fromJson(steps.config.outputs.item).commit }}'
+      - name: Print specific field using jq
+        run: |
+          jq '.commit' <<< '${{ steps.config.outputs.item }}'
 ```
 
 
@@ -168,7 +175,7 @@ For example:
 ```yaml
 - name: Print specific field
   run: |
-    echo ${{ fromJson(steps.[id].outputs.item).[field] }}
+    echo '${{ fromJson(steps.[id].outputs.item).[field] }}'
 ```
 
 Alternatively, You can also use [jq](https://stedolan.github.io/jq/). [Github-hosted runners already have pre-installed jq.](https://help.github.com/en/actions/reference/software-installed-on-github-hosted-runners)
