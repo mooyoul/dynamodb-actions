@@ -31,7 +31,7 @@ jobs:
     steps:
       - name: Get DynamoDB Item
         id: config
-        uses: mooyoul/dynamodb-actions@v1.1.3
+        uses: mooyoul/dynamodb-actions@1.2.1
         env:
           AWS_DEFAULT_REGION: us-east-1
           AWS_REGION: us-east-1
@@ -87,7 +87,7 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: Put DynamoDB Item
-        uses: mooyoul/dynamodb-actions@v1.1.3
+        uses: mooyoul/dynamodb-actions@1.2.1
         env:
           AWS_DEFAULT_REGION: us-east-1
           AWS_REGION: us-east-1
@@ -117,7 +117,7 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: Put DynamoDB Item
-        uses: mooyoul/dynamodb-actions@v1.1.3
+        uses: mooyoul/dynamodb-actions@1.2.1
         env:
           AWS_DEFAULT_REGION: us-east-1
           AWS_REGION: us-east-1
@@ -168,7 +168,7 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: Put DynamoDB Item
-        uses: mooyoul/dynamodb-actions@v1.2.0
+        uses: mooyoul/dynamodb-actions@v1.2.1
         env:
           AWS_DEFAULT_REGION: us-east-1
           AWS_REGION: us-east-1
@@ -207,7 +207,7 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: Put DynamoDB Item
-        uses: mooyoul/dynamodb-actions@v1.2.0
+        uses: mooyoul/dynamodb-actions@v1.2.1
         env:
           AWS_DEFAULT_REGION: us-east-1
           AWS_REGION: us-east-1
@@ -256,7 +256,7 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: Delete DynamoDB Item
-        uses: mooyoul/dynamodb-actions@v1.2.0
+        uses: mooyoul/dynamodb-actions@v1.2.1
         env:
           AWS_DEFAULT_REGION: us-east-1
           AWS_REGION: us-east-1
