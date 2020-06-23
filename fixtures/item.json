@@ -1,0 +1,10 @@
+{
+  "key": "single",
+  "value": 1,
+  "bool": true,
+  "empty": null,
+  "obj": {
+    "field": "value"
+  },
+  "arr": ["is", "fun"]
+}

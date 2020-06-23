@@ -43,33 +43,61 @@ describe("dynamodb-actions", () => {
   });
 
   describe("#put", () => {
-    it("should put record", async () => {
-      const [ e, res ] = await toJS<execa.ExecaReturnValue, unknown>(invokeAction({
-        operation: "put",
-        region: DYNAMODB_ENDPOINT,
-        table: tableName,
-        item: JSON.stringify({
-          key: "foo",
-          some: "value",
-          timestamp: 12345,
-        }),
-      }));
+    context("with item", () => {
+      it("should put record", async () => {
+        const [ e, res ] = await toJS<execa.ExecaReturnValue, unknown>(invokeAction({
+          operation: "put",
+          region: DYNAMODB_ENDPOINT,
+          table: tableName,
+          item: JSON.stringify({
+            key: "foo",
+            some: "value",
+            timestamp: 12345,
+          }),
+        }));
 
-      expect(e).to.eq(null);
-      expect(res?.exitCode).to.eq(0);
-      expect(res?.stdout).to.eq("");
+        expect(e).to.eq(null);
+        expect(res?.exitCode).to.eq(0);
+        expect(res?.stdout).to.eq("");
 
-      const saved = await ddb.getItem({
-        TableName: tableName,
-        Key: {
-          key: { S: "foo" },
-        },
-      }).promise();
+        const saved = await ddb.getItem({
+          TableName: tableName,
+          Key: {
+            key: { S: "foo" },
+          },
+        }).promise();
 
-      const item = saved.Item;
-      expect(item?.key).to.deep.eq({ S: "foo" });
-      expect(item?.some).to.deep.eq({ S: "value" });
-      expect(item?.timestamp).to.deep.eq({ N: "12345" });
+        const item = saved.Item;
+        expect(item?.key).to.deep.eq({ S: "foo" });
+        expect(item?.some).to.deep.eq({ S: "value" });
+        expect(item?.timestamp).to.deep.eq({ N: "12345" });
+      });
+    });
+
+    context("with file", () => {
+      it("should put record", async () => {
+        const [ e, res ] = await toJS<execa.ExecaReturnValue, unknown>(invokeAction({
+          operation: "put",
+          region: DYNAMODB_ENDPOINT,
+          table: tableName,
+          file: "fixtures/item.json",
+        }));
+
+        expect(e).to.eq(null);
+        expect(res?.exitCode).to.eq(0);
+        expect(res?.stdout).to.eq("");
+
+        const saved = await ddb.getItem({
+          TableName: tableName,
+          Key: {
+            key: { S: "single" },
+          },
+        }).promise();
+
+        const item = saved.Item;
+        expect(item?.key).to.deep.eq({ S: "single" });
+        expect(item?.value).to.deep.eq({ N: "1" });
+      });
     });
   });
 

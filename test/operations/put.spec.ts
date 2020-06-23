@@ -67,8 +67,54 @@ describe(PutOperation.name, () => {
   });
 
   describe("#execute", () => {
-    context("when operation was failed", () => {
-      it("should throw error", async () => {
+    context("with file", () => {
+      it("should throw error if given file is invalid", async () => {
+        const [ e ] = await toJS<unknown, Error>(
+          operation.execute({
+            operation: "put",
+            region: DYNAMODB_ENDPOINT,
+            table: tableName,
+            file: "not-exists.json",
+          }),
+        );
+
+        expect(e).to.be.instanceOf(Error);
+      });
+
+      it("should success if operation was succeed", async () => {
+        await operation.execute({
+          operation: "put",
+          region: DYNAMODB_ENDPOINT,
+          table: tableName,
+          file: "fixtures/item.json",
+        });
+
+        const item = (await ddb.getItem({
+          TableName: tableName,
+          Key: {
+            key: { S: "single" },
+          },
+        }).promise()).Item;
+
+        expect(item).to.deep.eq({
+          key: { S: "single" },
+          value: { N: "1" },
+          bool: { BOOL: true },
+          empty: { NULL: true },
+          obj: {
+            M: {
+              field: { S: "value" },
+            },
+          },
+          arr: {
+            L: [{ S: "is" }, { S: "fun" }],
+          },
+        });
+      });
+    });
+
+    context("with item", () => {
+      it("should throw error if operation was failed", async () => {
         const [ e ] = await toJS<unknown, Error>(
           operation.execute({
             operation: "put",
@@ -80,10 +126,8 @@ describe(PutOperation.name, () => {
 
         expect(e).to.be.instanceOf(Error);
       });
-    });
 
-    context("when operation was succeed", () => {
-      it("should success", async () => {
+      it("should success if operation was succeed", async () => {
         await operation.execute({
           operation: "put",
           region: DYNAMODB_ENDPOINT,
