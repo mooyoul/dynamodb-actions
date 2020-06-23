@@ -1,5 +1,5 @@
 {
-    "extends": ["@vingle/tslint-preset"],
+    "extends": ["@prescott/tslint-preset"],
     "rules": {
         "whitespace": true,
         "type-literal-delimiter": true,
