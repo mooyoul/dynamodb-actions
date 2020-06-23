@@ -1,3 +1,11 @@
+# [1.2.0](https://github.com/mooyoul/dynamodb-actions/compare/v1.1.3...v1.2.0) (2020-06-23)
+
+
+### Features
+
+* **batch-put:** implement batch-put operation ([534873e](https://github.com/mooyoul/dynamodb-actions/commit/534873e18f9671da9d1c0676680eabb71cb5f6dc)), closes [#1](https://github.com/mooyoul/dynamodb-actions/issues/1)
+* **put:** add file input support ([d71159a](https://github.com/mooyoul/dynamodb-actions/commit/d71159a4d7606f8de833565ece1f498271ea73aa))
+
 ## [1.1.3](https://github.com/mooyoul/dynamodb-actions/compare/v1.1.2...v1.1.3) (2020-05-02)
 
 

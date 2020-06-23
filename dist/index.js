@@ -7,12 +7,19 @@ const processor = new processor_1.Processor();
 (async () => {
     var _a;
     const input = {
+        // Common
         operation: (_a = core.getInput("operation")) === null || _a === void 0 ? void 0 : _a.toLowerCase(),
         region: core.getInput("region"),
         table: core.getInput("table"),
+        // Get / Delete Operation
         key: helpers_1.forgivingJSONParse(core.getInput("key")),
-        item: helpers_1.forgivingJSONParse(core.getInput("item")),
         consistent: helpers_1.forgivingJSONParse(core.getInput("consistent")),
+        // Put Operation
+        item: helpers_1.forgivingJSONParse(core.getInput("item")),
+        file: core.getInput("file"),
+        // BatchPut Operation
+        items: helpers_1.forgivingJSONParse(core.getInput("items")),
+        files: core.getInput("files"),
     };
     const output = await processor.process(input);
     if (output) {

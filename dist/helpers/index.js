@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.forgivingJSONParse = exports.createClient = void 0;
 const dynamodb_1 = require("aws-sdk/clients/dynamodb");
 const vm = require("vm");
 function createClient(endpoint) {

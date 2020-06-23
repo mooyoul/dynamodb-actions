@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.GetOperation = void 0;
 const Joi = require("@hapi/joi");
 const helpers_1 = require("../helpers");
 const InputSchema = Joi.object({

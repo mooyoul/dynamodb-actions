@@ -1,9 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Processor = void 0;
 const operations_1 = require("./operations");
 class Processor {
     constructor() {
         this.operations = [
+            new operations_1.BatchPutOperation(),
             new operations_1.DeleteOperation(),
             new operations_1.GetOperation(),
             new operations_1.PutOperation(),
