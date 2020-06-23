@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: Get DynamoDB Item
         id: config
-        uses: mooyoul/dynamodb-actions@v1.2.0
+        uses: mooyoul/dynamodb-actions@v1.2.1
         env:
           AWS_DEFAULT_REGION: us-east-1
           AWS_REGION: us-east-1
@@ -33,7 +33,7 @@ jobs:
         run: |
           jq '.commit' <<< '${{ steps.config.outputs.item }}'
       - name: Delete DynamoDB Item
-        uses: mooyoul/dynamodb-actions@v1.2.0
+        uses: mooyoul/dynamodb-actions@v1.2.1
         env:
           AWS_DEFAULT_REGION: us-east-1
           AWS_REGION: us-east-1
@@ -46,7 +46,7 @@ jobs:
           key: |
             { key: "foo" }
       - name: Put DynamoDB Item (JSON input)
-        uses: mooyoul/dynamodb-actions@v1.2.0
+        uses: mooyoul/dynamodb-actions@v1.2.1
         env:
           AWS_DEFAULT_REGION: us-east-1
           AWS_REGION: us-east-1
@@ -65,7 +65,7 @@ jobs:
               stars: 12345
             }
       - name: Put DynamoDB Item (File Input)
-        uses: mooyoul/dynamodb-actions@v1.2.0
+        uses: mooyoul/dynamodb-actions@v1.2.1
         env:
           AWS_DEFAULT_REGION: us-east-1
           AWS_REGION: us-east-1
@@ -77,7 +77,7 @@ jobs:
           table: dynamodb-actions-test
           file: fixtures/item.json
       - name: BatchPut DynamoDB Item (JSON input)
-        uses: mooyoul/dynamodb-actions@v1.2.0
+        uses: mooyoul/dynamodb-actions@v1.2.1
         env:
           AWS_DEFAULT_REGION: us-east-1
           AWS_REGION: us-east-1
@@ -98,8 +98,8 @@ jobs:
               key: "bar",
               value: "baz"
             }]
-      - name: Put DynamoDB Item (File Input)
-        uses: mooyoul/dynamodb-actions@v1.2.0
+      - name: BatchPut DynamoDB Item (File Input)
+        uses: mooyoul/dynamodb-actions@v1.2.1
         env:
           AWS_DEFAULT_REGION: us-east-1
           AWS_REGION: us-east-1
