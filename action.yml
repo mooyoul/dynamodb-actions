@@ -2,6 +2,7 @@ name: 'DynamoDB Actions'
 description: 'GitHub action that integrates with Amazon DynamoDB'
 author: 'MooYeol Prescott Lee'
 inputs:
+  # Common
   operation:
     description: 'Operation Type (e.g. get, put, delete)'
     required: true
@@ -11,15 +12,30 @@ inputs:
   table:
     description: 'Target Table Name or ARN'
     required: true
+  # Get/Delete Operation
   key:
     description: 'Item Key'
-    required: false
-  item:
-    description: 'Item Value, Only required for put operation'
     required: false
   consistent:
     description: 'Enable consistent read'
     required: false
+
+  # Put Operation
+  item:
+    description: 'Item Value, Only required for put operation'
+    required: false
+  file:
+    description: 'Item Value, Only required for put operation'
+    required: false
+
+  # BatchPut Operation
+  items:
+    description: 'Item Value, Only required for batch-put operation'
+    required: false
+  files:
+    description: 'Item Value, Only required for batch-put operation'
+    required: false
+
 outputs:
   item:
     description: 'JSON-serialized Item'
