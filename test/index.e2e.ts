@@ -101,6 +101,122 @@ describe("dynamodb-actions", () => {
     });
   });
 
+  describe("#batch-put", () => {
+    context("with items", () => {
+      it("should batchPut records", async () => {
+        const [ e, res ] = await toJS<execa.ExecaReturnValue, unknown>(invokeAction({
+          operation: "batch-put",
+          region: DYNAMODB_ENDPOINT,
+          table: tableName,
+          items: JSON.stringify([{
+            key: "foo",
+            some: "one",
+            timestamp: 1,
+          }, {
+            key: "bar",
+            some: "two",
+            timestamp: 2,
+          }]),
+        }));
+
+        expect(e).to.eq(null);
+        expect(res?.exitCode).to.eq(0);
+        expect(res?.stdout).to.eq("");
+
+        const saved = (await ddb.batchGetItem({
+          RequestItems: {
+            [tableName]: {
+              Keys: [{
+                key: { S: "foo" },
+              }, {
+                key: { S: "bar" },
+              }],
+            },
+          },
+        }).promise()).Responses?.[tableName];
+
+        expect(saved).to.have.deep.members([{
+          key: { S: "foo" },
+          some: { S: "one" },
+          timestamp: { N: "1" },
+        }, {
+          key: { S: "bar" },
+          some: { S: "two" },
+          timestamp: { N: "2" },
+        }]);
+      });
+    });
+
+    context("with files", () => {
+      it("should put records", async () => {
+        const [ e, res ] = await toJS<execa.ExecaReturnValue, unknown>(invokeAction({
+          operation: "batch-put",
+          region: DYNAMODB_ENDPOINT,
+          table: tableName,
+          files: "fixtures/*.json",
+        }));
+
+        expect(e).to.eq(null);
+        expect(res?.exitCode).to.eq(0);
+
+        const items = (await ddb.batchGetItem({
+          RequestItems: {
+            [tableName]: {
+              Keys: [{
+                key: { S: "single" },
+              }, {
+                key: { S: "single2" },
+              }, {
+                key: { S: "single3" },
+              }],
+            },
+          },
+        }).promise()).Responses?.[tableName];
+
+        expect(items).to.have.deep.members([{
+          key: { S: "single" },
+          value: { N: "1" },
+          bool: { BOOL: true },
+          empty: { NULL: true },
+          obj: {
+            M: {
+              field: { S: "value" },
+            },
+          },
+          arr: {
+            L: [{ S: "is" }, { S: "fun" }],
+          },
+        }, {
+          key: { S: "single2" },
+          value: { N: "2" },
+          bool: { BOOL: true },
+          empty: { NULL: true },
+          obj: {
+            M: {
+              field: { S: "value" },
+            },
+          },
+          arr: {
+            L: [{ S: "is" }, { S: "fun" }],
+          },
+        }, {
+          key: { S: "single3" },
+          value: { N: "3" },
+          bool: { BOOL: true },
+          empty: { NULL: true },
+          obj: {
+            M: {
+              field: { S: "value" },
+            },
+          },
+          arr: {
+            L: [{ S: "is" }, { S: "fun" }],
+          },
+        }]);
+      });
+    });
+  });
+
   describe("#delete", () => {
     beforeEach(async () => {
       await ddb.putItem({

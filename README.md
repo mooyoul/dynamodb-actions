@@ -77,6 +77,8 @@ Put Item to DynamoDB
 
 ##### Example
 
+with JSON input:
+
 ```yaml
 # ...
 jobs:
@@ -104,6 +106,29 @@ jobs:
             }
 ```
 
+with File input:
+
+
+```yaml
+# ...
+jobs:
+  job:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Put DynamoDB Item
+        uses: mooyoul/dynamodb-actions@v1.1.3
+        env:
+          AWS_DEFAULT_REGION: us-east-1
+          AWS_REGION: us-east-1
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        with:
+          operation: put
+          region: us-east-1
+          table: my-awesome-config
+          file: somewhere/filename.json
+```
 
 
 ##### Input
@@ -114,7 +139,102 @@ type PutItemInput = {
   region: string;
   table: string;
   item: string; // JSON-serialized item
-}
+} | {
+  operation: "put";
+  region: string;
+  table: string;
+  file: string; // JSON file path
+};
+```
+
+##### Output
+
+None.
+
+
+### Batch Put Item
+
+Batch Put Item to DynamoDB.
+
+##### Example
+
+with JSON input:
+
+```yaml
+# ...
+jobs:
+  job:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Put DynamoDB Item
+        uses: mooyoul/dynamodb-actions@v1.1.3
+        env:
+          AWS_DEFAULT_REGION: us-east-1
+          AWS_REGION: us-east-1
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        with:
+          operation: batch-put
+          region: us-east-1
+          table: my-awesome-config
+          items: |
+            [{ 
+              key: "foo",
+              value: "wow",
+              awesome: true,
+              stars: 12345
+            }, {
+              key: "bar",
+              value: "such",
+              awesome: false,
+              stars: 1
+            }]
+```
+
+with File input (Glob):
+
+> You can select multiple files by supplying Glob.
+>
+> For supported Glob patterns, Please refer to [@actions/glob README](https://github.com/actions/toolkit/tree/master/packages/glob#patterns).
+  
+
+```yaml
+# ...
+jobs:
+  job:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Put DynamoDB Item
+        uses: mooyoul/dynamodb-actions@v1.1.3
+        env:
+          AWS_DEFAULT_REGION: us-east-1
+          AWS_REGION: us-east-1
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        with:
+          operation: batch-put
+          region: us-east-1
+          table: my-awesome-config
+          files: somewhere/prefix*.json
+```
+
+
+##### Input
+
+```typescript
+type BatchPutItemInput = {
+  operation: "batch-put";
+  region: string;
+  table: string;
+  items: string; // JSON-serialized item array
+} | {
+  operation: "put";
+  region: string;
+  table: string;
+  files: string; // Glob to match JSON file paths
+};
 ```
 
 ##### Output

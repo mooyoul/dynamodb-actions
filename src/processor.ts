@@ -1,9 +1,10 @@
 import { Operation, Output } from "./operations";
 
-import { DeleteOperation, GetOperation, PutOperation } from "./operations";
+import { BatchPutOperation, DeleteOperation, GetOperation, PutOperation } from "./operations";
 
 export class Processor {
   public operations: Operation<any>[] = [
+    new BatchPutOperation(),
     new DeleteOperation(),
     new GetOperation(),
     new PutOperation(),
