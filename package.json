@@ -31,25 +31,25 @@
     "@semantic-release/git": "9.0.0",
     "@semantic-release/release-notes-generator": "9.0.1",
     "@types/chai": "4.2.11",
-    "@types/hapi__joi": "16.0.12",
+    "@types/hapi__joi": "17.1.2",
     "@types/joi": "14.3.4",
     "@types/mocha": "7.0.2",
-    "@types/node": "12.12.37",
+    "@types/node": "12.12.47",
     "@vingle/commitlint-preset": "1.0.3",
     "@vingle/tslint-preset": "1.0.1",
     "chai": "4.2.0",
-    "execa": "4.0.0",
+    "execa": "4.0.2",
     "husky": "4.2.5",
-    "mocha": "7.1.2",
-    "semantic-release": "17.0.7",
-    "ts-node": "8.9.1",
+    "mocha": "8.0.1",
+    "semantic-release": "17.1.0",
+    "ts-node": "8.10.2",
     "tslint": "6.1.2",
-    "typescript": "3.8.3"
+    "typescript": "3.9.5"
   },
   "dependencies": {
     "@actions/core": "^1.1.1",
     "@hapi/joi": "^17.1.1",
-    "aws-sdk": "^2.668.0"
+    "aws-sdk": "^2.703.0"
   },
   "config": {
     "commitizen": {
