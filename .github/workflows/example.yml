@@ -8,6 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
+      - uses: actions/checkout@v1
       - name: Get DynamoDB Item
         id: config
         uses: mooyoul/dynamodb-actions@v1.2.1
