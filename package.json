@@ -35,7 +35,7 @@
     "@types/chai": "4.2.12",
     "@types/hapi__joi": "17.1.4",
     "@types/joi": "14.3.4",
-    "@types/mocha": "8.0.2",
+    "@types/mocha": "8.0.3",
     "@types/node": "12.12.54",
     "chai": "4.2.0",
     "execa": "4.0.3",
