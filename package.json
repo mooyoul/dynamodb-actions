@@ -26,7 +26,7 @@
   "homepage": "https://github.com/mooyoul/dynamodb-actions#readme",
   "devDependencies": {
     "@prescott/commitlint-preset": "1.0.1",
-    "@prescott/tslint-preset": "1.0.0",
+    "@prescott/tslint-preset": "1.0.1",
     "@semantic-release/changelog": "5.0.1",
     "@semantic-release/commit-analyzer": "8.0.1",
     "@semantic-release/exec": "5.0.0",
