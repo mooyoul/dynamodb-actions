@@ -36,7 +36,7 @@
     "@types/hapi__joi": "17.1.6",
     "@types/joi": "14.3.4",
     "@types/mocha": "8.2.0",
-    "@types/node": "12.19.14",
+    "@types/node": "12.19.15",
     "chai": "4.2.0",
     "execa": "4.1.0",
     "husky": "4.3.8",
