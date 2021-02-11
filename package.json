@@ -40,7 +40,7 @@
     "chai": "4.3.0",
     "execa": "4.1.0",
     "husky": "4.3.8",
-    "mocha": "8.2.1",
+    "mocha": "8.3.0",
     "semantic-release": "17.3.8",
     "ts-node": "8.10.2",
     "tslint": "6.1.3",
