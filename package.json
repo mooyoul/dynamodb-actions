@@ -47,7 +47,7 @@
     "typescript": "3.9.9"
   },
   "dependencies": {
-    "@actions/core": "^1.1.1",
+    "@actions/core": "^1.2.6",
     "@actions/glob": "^0.1.0",
     "@hapi/joi": "^17.1.1",
     "aws-sdk": "^2.703.0"
