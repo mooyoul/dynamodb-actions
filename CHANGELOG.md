@@ -1,3 +1,10 @@
+## [1.2.2](https://github.com/mooyoul/dynamodb-actions/compare/v1.2.1...v1.2.2) (2021-04-19)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @actions/core to ^1.2.6 ([df24fea](https://github.com/mooyoul/dynamodb-actions/commit/df24fea5167f2e7bdcd875d53a40a35cc64d000f))
+
 ## [1.2.1](https://github.com/mooyoul/dynamodb-actions/compare/v1.2.0...v1.2.1) (2020-06-23)
 
 
