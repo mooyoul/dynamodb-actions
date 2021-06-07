@@ -1,3 +1,10 @@
+## [1.2.3](https://github.com/mooyoul/dynamodb-actions/compare/v1.2.2...v1.2.3) (2021-06-07)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @actions/glob to ^0.2.0 ([fe392dd](https://github.com/mooyoul/dynamodb-actions/commit/fe392dd673cc0b3ab3211f7e9aecadda78aaba0d))
+
 ## [1.2.2](https://github.com/mooyoul/dynamodb-actions/compare/v1.2.1...v1.2.2) (2021-04-19)
 
 
