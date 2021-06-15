@@ -7,7 +7,6 @@ const InputSchema = Joi.object({
   region: Joi.string().lowercase().required(),
   table: Joi.string().required(),
   existingKey: Joi.object().pattern(/./, Joi.alternatives().try(Joi.string(), Joi.number())).min(1).max(2).required(),
-  constRead: Joi.boolean().default(false).optional(),
 }).required();
 
 interface UpdateOperationInput {

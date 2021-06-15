@@ -23,6 +23,9 @@ const processor = new Processor();
     // BatchPut Operation
     items: forgivingJSONParse(core.getInput("items")),
     files: core.getInput("files"),
+
+    // Update Operation
+    existingKey: forgivingJSONParse(core.getInput("existingKey")),
   };
 
   const output = await processor.process(input);
