@@ -17,7 +17,7 @@ interface UpdateOperationInput {
 }
 
 export class UpdateOperation implements Operation<UpdateOperationInput> {
-  public readonly name = "get";
+  public readonly name = "update";
 
   public async validate(input: unknown): Promise<UpdateOperationInput> {
     const validationResult = InputSchema.validate(input, {
