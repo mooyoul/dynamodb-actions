@@ -1,6 +1,6 @@
 import { Operation, Output } from "./operations";
 
-import { BatchPutOperation, DeleteOperation, GetOperation, PutOperation } from "./operations";
+import { BatchPutOperation, DeleteOperation, GetOperation, PutOperation, UpdateOperation } from "./operations";
 
 export class Processor {
   public operations: Operation<any>[] = [
@@ -8,6 +8,7 @@ export class Processor {
     new DeleteOperation(),
     new GetOperation(),
     new PutOperation(),
+    new UpdateOperation()
   ];
 
   public async process(input: {
