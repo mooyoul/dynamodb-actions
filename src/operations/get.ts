@@ -34,7 +34,7 @@ export class GetOperation implements Operation<GetOperationInput> {
 
   public async execute(input: GetOperationInput) {
     const ddb = createClient(input.region);
-    const res = await ddb.get({
+    await ddb.get({
       TableName: input.table,
       Key: input.key,
       ConsistentRead: !!input.consistent,
