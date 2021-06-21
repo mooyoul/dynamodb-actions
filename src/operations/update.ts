@@ -34,7 +34,7 @@ export class UpdateOperation implements Operation<UpdateOperationInput> {
 
   public async execute(input: UpdateOperationInput) {
     const ddb = createClient(input.region);
-    const res = await ddb.update({
+    await ddb.update({
       TableName: input.table,
       Key: input.key,
     }).promise();
