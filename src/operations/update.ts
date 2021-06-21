@@ -3,10 +3,11 @@ import { createClient } from "../helpers";
 import { Operation } from "./base";
 
 const InputSchema = Joi.object({
-  operation: Joi.string().lowercase().valid("get").required(),
+  operation: Joi.string().lowercase().valid("update").required(),
   region: Joi.string().lowercase().required(),
   table: Joi.string().required(),
   key: Joi.object().pattern(/./, Joi.alternatives().try(Joi.string(), Joi.number())).min(1).max(2).required(),
+  consistent: Joi.boolean().default(false).optional(),
 }).required();
 
 interface UpdateOperationInput {
@@ -14,6 +15,7 @@ interface UpdateOperationInput {
   region: string;
   table: string;
   key: { [key: string]: string | number };
+  consistent: boolean;
 }
 
 export class UpdateOperation implements Operation<UpdateOperationInput> {

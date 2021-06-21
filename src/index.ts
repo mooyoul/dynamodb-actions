@@ -12,7 +12,7 @@ const processor = new Processor();
     region: core.getInput("region"),
     table: core.getInput("table"),
 
-    // Get / Delete Operation
+    // Get / Delete / Update Operation
     key: forgivingJSONParse(core.getInput("key")),
     consistent: forgivingJSONParse(core.getInput("consistent")),
 
@@ -23,9 +23,6 @@ const processor = new Processor();
     // BatchPut Operation
     items: forgivingJSONParse(core.getInput("items")),
     files: core.getInput("files"),
-
-    // Update Operation
-    existingKey: forgivingJSONParse(core.getInput("existingKey")),
   };
 
   const output = await processor.process(input);
