@@ -15,6 +15,7 @@ export class Processor {
     operation: string;
     [key: string]: unknown;
   }): Promise<void | Output> {
+    console.log(this.operations);
     for (const operation of this.operations) {
       if (operation.name === input.operation) {
         const validated = await operation.validate(input);
