@@ -36,6 +36,14 @@ inputs:
     description: 'Item Value, Only required for batch-put operation'
     required: false
 
+  #Update Operation
+  updateExpression:
+    description: 'Attribute variables, Only required for update operation'
+    required: false
+  expressionAttributeValues:
+    description: 'Attribute values to be updated, Only required for update operation'
+    required: false
+
 outputs:
   item:
     description: 'JSON-serialized Item'
