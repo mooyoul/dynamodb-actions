@@ -7,18 +7,18 @@ const InputSchema = Joi.object({
   operation: Joi.string().lowercase().valid("update").required(),
   region: Joi.string().lowercase().required(),
   table: Joi.string().required(),
-  key: Joi.object().pattern(/./, Joi.alternatives().try(Joi.string(), Joi.number())).min(1).max(2).required(),
   updateExpression: Joi.string().required(),
-  expressionAttributeValues: Joi.string().required()
+  expressionAttributeValues: Joi.string().required(),
+  key: Joi.object().pattern(/./, Joi.alternatives().try(Joi.string(), Joi.number())).min(1).max(2).required(),
 }).required();
 
 export interface UpdateOperationInput {
   operation: "update";
   region: string;
   table: string;
-  key: { [key: string]: string | number };
   updateExpression: string;
   expressionAttributeValues: { [key: string]: string };
+  key: { [key: string]: string | number };
 }
 
 export class UpdateOperation implements Operation<UpdateOperationInput> {
