@@ -17,7 +17,7 @@ export interface UpdateOperationInput {
   region: string;
   table: string;
   updateExpression: string;
-  expressionAttributeValues: { [key: string]: string };
+  expressionAttributeValues: string;
   key: { [key: string]: string | number };
 }
 
@@ -40,8 +40,10 @@ export class UpdateOperation implements Operation<UpdateOperationInput> {
     await ddb.update({
       TableName: input.table,
       Key: input.key,
-      UpdateExpression: input.updateExpression,
-      ExpressionAttributeValues: input.expressionAttributeValues
+      UpdateExpression: `set ${input.updateExpression} = :${input.updateExpression}`,
+      ExpressionAttributeValues: {
+        [`:${input.updateExpression}`]:`${input.expressionAttributeValues}`
+      }
     }).promise();
   }
 }
