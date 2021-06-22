@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BatchPutOperation = void 0;
 const glob = require("@actions/glob");
-const Joi = require("@hapi/joi");
+const Joi = require("joi");
 const fs_1 = require("fs");
 const helpers_1 = require("../helpers");
 const BaseInputSchema = Joi.object({
