@@ -11,7 +11,7 @@ const processor = new processor_1.Processor();
         operation: (_a = core.getInput("operation")) === null || _a === void 0 ? void 0 : _a.toLowerCase(),
         region: core.getInput("region"),
         table: core.getInput("table"),
-        // Get / Delete Operation
+        // Get / Delete / Update Operation
         key: helpers_1.forgivingJSONParse(core.getInput("key")),
         consistent: helpers_1.forgivingJSONParse(core.getInput("consistent")),
         // Put Operation

@@ -9,6 +9,7 @@ class Processor {
             new operations_1.DeleteOperation(),
             new operations_1.GetOperation(),
             new operations_1.PutOperation(),
+            new operations_1.UpdateOperation()
         ];
     }
     async process(input) {

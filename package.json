@@ -51,7 +51,9 @@
     "@actions/glob": "^0.2.0",
     "@hapi/joi": "^17.1.1",
     "aws-sdk": "^2.703.0",
-    "joi": "^17.4.0"
+    "build": "^0.1.4",
+    "joi": "^17.4.0",
+    "tsc": "^2.0.3"
   },
   "config": {
     "commitizen": {
