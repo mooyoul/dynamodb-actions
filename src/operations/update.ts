@@ -7,15 +7,13 @@ const InputSchema = Joi.object({
   region: Joi.string().lowercase().required(),
   table: Joi.string().required(),
   key: Joi.object().pattern(/./, Joi.alternatives().try(Joi.string(), Joi.number())).min(1).max(2).required(),
-  consistent: Joi.boolean().default(false).optional(),
 }).required();
 
-interface UpdateOperationInput {
+export interface UpdateOperationInput {
   operation: "update";
   region: string;
   table: string;
   key: { [key: string]: string | number };
-  consistent: boolean;
 }
 
 export class UpdateOperation implements Operation<UpdateOperationInput> {
