@@ -1,4 +1,5 @@
 import * as Joi from "joi";
+import { string } from "joi";
 import { createClient } from "../helpers";
 import { Operation } from "./base"; 
 
@@ -7,6 +8,8 @@ const InputSchema = Joi.object({
   region: Joi.string().lowercase().required(),
   table: Joi.string().required(),
   key: Joi.object().pattern(/./, Joi.alternatives().try(Joi.string(), Joi.number())).min(1).max(2).required(),
+  updateExpression: Joi.string().required(),
+  expressionAttributeValues: Joi.string().required()
 }).required();
 
 export interface UpdateOperationInput {
@@ -14,6 +17,8 @@ export interface UpdateOperationInput {
   region: string;
   table: string;
   key: { [key: string]: string | number };
+  updateExpression: string;
+  expressionAttributeValues: { [key: string]: string };
 }
 
 export class UpdateOperation implements Operation<UpdateOperationInput> {
@@ -35,6 +40,8 @@ export class UpdateOperation implements Operation<UpdateOperationInput> {
     await ddb.update({
       TableName: input.table,
       Key: input.key,
+      UpdateExpression: input.updateExpression,
+      ExpressionAttributeValues: input.expressionAttributeValues
     }).promise();
   }
 }

@@ -20,6 +20,9 @@ const processor = new processor_1.Processor();
         // BatchPut Operation
         items: helpers_1.forgivingJSONParse(core.getInput("items")),
         files: core.getInput("files"),
+        // Update Operation
+        updateExpression: helpers_1.forgivingJSONParse(core.getInput("updateExpression")),
+        expressionAttributeValues: helpers_1.forgivingJSONParse(core.getInput("expressionAttributeValues"))
     };
     const output = await processor.process(input);
     if (output) {
