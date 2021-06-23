@@ -7,9 +7,9 @@ const InputSchema = Joi.object({
     operation: Joi.string().lowercase().valid("update").required(),
     region: Joi.string().lowercase().required(),
     table: Joi.string().required(),
-    key: Joi.object().pattern(/./, Joi.alternatives().try(Joi.string(), Joi.number())).min(1).max(2).required(),
     updateExpression: Joi.string().required(),
-    expressionAttributeValues: Joi.string().required()
+    expressionAttributeValues: Joi.string().required(),
+    key: Joi.object().pattern(/./, Joi.alternatives().try(Joi.string(), Joi.number())).min(1).max(2).required(),
 }).required();
 class UpdateOperation {
     constructor() {
@@ -29,8 +29,10 @@ class UpdateOperation {
         await ddb.update({
             TableName: input.table,
             Key: input.key,
-            UpdateExpression: input.updateExpression,
-            ExpressionAttributeValues: input.expressionAttributeValues
+            UpdateExpression: `set ${input.updateExpression} = :${input.updateExpression}`,
+            ExpressionAttributeValues: {
+                [`:${input.updateExpression}`]: `${input.expressionAttributeValues}`
+            }
         }).promise();
     }
 }

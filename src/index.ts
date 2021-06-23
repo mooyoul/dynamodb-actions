@@ -25,8 +25,8 @@ const processor = new Processor();
     files: core.getInput("files"),
 
     // Update Operation
-    updateExpression: forgivingJSONParse(core.getInput("updateExpression")),
-    expressionAttributeValues: forgivingJSONParse(core.getInput("expressionAttributeValues"))
+    updateExpression: core.getInput("updateExpression"),
+    expressionAttributeValues: core.getInput("expressionAttributeValues")
   };
 
   const output = await processor.process(input);
