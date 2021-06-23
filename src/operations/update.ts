@@ -42,7 +42,7 @@ export class UpdateOperation implements Operation<UpdateOperationInput> {
       Key: input.key,
       UpdateExpression: `set ${input.updateExpression} = :${input.updateExpression}`,
       ExpressionAttributeValues: {
-        [`:${input.updateExpression}`]:`${input.expressionAttributeValues}`
+        [`:${input.updateExpression}`]:`${process.env.expressionAttributeValues}`
       }
     }).promise();
   }
