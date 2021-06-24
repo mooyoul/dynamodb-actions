@@ -57,8 +57,10 @@ export class UpdateOperation implements Operation<UpdateOperationInput> {
     let attValues = {};
 
     this.buildExpression(updateExp, input);
+    this.buildAttributes(updateExp, attValues, input);
 
     console.log(updateExp);
+    console.log(attValues);
 
     await ddb.update({
       TableName: input.table,
@@ -80,6 +82,8 @@ export class UpdateOperation implements Operation<UpdateOperationInput> {
     for(let i=0; i<updateExpressions.length; i++) {
       updateExp.concat(` ${updateExpressions[i]} = :${updateExpressions[i]},`);
     }
+
+    return updateExp;
   }
 
   private async buildAttributes(updateExp: string, attValues: {}, input: UpdateOperationInput) {

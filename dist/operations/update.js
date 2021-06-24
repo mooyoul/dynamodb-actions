@@ -39,7 +39,9 @@ class UpdateOperation {
         let updateExp = `set`;
         let attValues = {};
         this.buildExpression(updateExp, input);
+        this.buildAttributes(updateExp, attValues, input);
         console.log(updateExp);
+        console.log(attValues);
         await ddb.update({
             TableName: input.table,
             Key: input.key,
@@ -56,6 +58,7 @@ class UpdateOperation {
         for (let i = 0; i < updateExpressions.length; i++) {
             updateExp.concat(` ${updateExpressions[i]} = :${updateExpressions[i]},`);
         }
+        return updateExp;
     }
     async buildAttributes(updateExp, attValues, input) {
         if (input.expressionAttributeValues) {
