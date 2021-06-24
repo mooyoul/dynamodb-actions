@@ -55,15 +55,10 @@ export class UpdateOperation implements Operation<UpdateOperationInput> {
     const item = input.expressionAttributeValues || await this.read(input.expressionAttributeFiles!);
     let updateExp = `set`;
     let attValues = {};
-    const updateExpressions = input.updateExpression.split(',');
-    const expAttValues = item.split(',');
 
-    for(let i=0; i<updateExpressions.length; i++) {
-      updateExp.concat(` ${updateExpressions[i]} = :${updateExpressions[i]},`);
-      Object.defineProperty(attValues, `:${updateExp[i]}`, { 
-        value: `${expAttValues[i]}`
-      });
-    }
+    this.buildExpression(updateExp, input);
+
+    console.log(updateExp);
 
     await ddb.update({
       TableName: input.table,
@@ -77,5 +72,34 @@ export class UpdateOperation implements Operation<UpdateOperationInput> {
     const content = await fs.readFile(path, { encoding: "utf8" });
 
     return JSON.parse(content);
+  }
+
+  private async buildExpression(updateExp: string, input: UpdateOperationInput) {
+    const updateExpressions = input.updateExpression.split(',');
+
+    for(let i=0; i<updateExpressions.length; i++) {
+      updateExp.concat(` ${updateExpressions[i]} = :${updateExpressions[i]},`);
+    }
+  }
+
+  private async buildAttributes(updateExp: string, attValues: {}, input: UpdateOperationInput) {
+    if(input.expressionAttributeValues) {
+      const expAttValues = input.expressionAttributeValues.split(',');
+
+      for(let i=0; i<expAttValues.length; i++) {
+        Object.defineProperty(attValues, `:${updateExp[i]}`, { 
+          value: `${expAttValues[i]}`
+        });
+      }
+    }
+    else if(input.expressionAttributeFiles) {
+      const expAttValues = input.expressionAttributeFiles!.split(',');
+
+      for(let i=0; i<expAttValues.length; i++) {
+        Object.defineProperty(attValues, `:${updateExp[i]}`, { 
+          value: `${expAttValues[i]}`
+        });
+      }
+    }
   }
 }

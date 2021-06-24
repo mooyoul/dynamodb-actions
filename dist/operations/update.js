@@ -38,14 +38,8 @@ class UpdateOperation {
         const item = input.expressionAttributeValues || await this.read(input.expressionAttributeFiles);
         let updateExp = `set`;
         let attValues = {};
-        const updateExpressions = input.updateExpression.split(',');
-        const expAttValues = item.split(',');
-        for (let i = 0; i < updateExpressions.length; i++) {
-            updateExp.concat(` ${updateExpressions[i]} = :${updateExpressions[i]},`);
-            Object.defineProperty(attValues, `:${updateExp[i]}`, {
-                value: `${expAttValues[i]}`
-            });
-        }
+        this.buildExpression(updateExp, input);
+        console.log(updateExp);
         await ddb.update({
             TableName: input.table,
             Key: input.key,
@@ -56,6 +50,30 @@ class UpdateOperation {
     async read(path) {
         const content = await fs_1.promises.readFile(path, { encoding: "utf8" });
         return JSON.parse(content);
+    }
+    async buildExpression(updateExp, input) {
+        const updateExpressions = input.updateExpression.split(',');
+        for (let i = 0; i < updateExpressions.length; i++) {
+            updateExp.concat(` ${updateExpressions[i]} = :${updateExpressions[i]},`);
+        }
+    }
+    async buildAttributes(updateExp, attValues, input) {
+        if (input.expressionAttributeValues) {
+            const expAttValues = input.expressionAttributeValues.split(',');
+            for (let i = 0; i < expAttValues.length; i++) {
+                Object.defineProperty(attValues, `:${updateExp[i]}`, {
+                    value: `${expAttValues[i]}`
+                });
+            }
+        }
+        else if (input.expressionAttributeFiles) {
+            const expAttValues = input.expressionAttributeFiles.split(',');
+            for (let i = 0; i < expAttValues.length; i++) {
+                Object.defineProperty(attValues, `:${updateExp[i]}`, {
+                    value: `${expAttValues[i]}`
+                });
+            }
+        }
     }
 }
 exports.UpdateOperation = UpdateOperation;
