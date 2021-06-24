@@ -1,5 +1,5 @@
 import * as Joi from "joi";
-import * as fs from "fs-extra";
+import { promises as fs } from "fs";
 import { createClient } from "../helpers";
 import { Operation } from "./base"; 
 
@@ -7,18 +7,17 @@ const BaseInputSchema = Joi.object({
   operation: Joi.string().lowercase().valid("update").required(),
   region: Joi.string().lowercase().required(),
   table: Joi.string().required(),
+  updateExpression: Joi.string().required()
 });
 
 const InputSchema = Joi.alternatives([
   BaseInputSchema.append({
-    updateExpression: Joi.string().required(),
     expressionAttributeValues: Joi.string().required(),
     key: Joi.object().required(),
   }),
   BaseInputSchema.append({
-    updateExpression: Joi.string().required(),
     expressionAttributeFiles: Joi.string().required(),
-    key: Joi.string().required(),
+    key: Joi.object().required(),
   }),
 ]).required();
 
@@ -26,13 +25,12 @@ export type UpdateOperationInput = {
   operation: "update";
   region: string;
   table: string;
-} & ({
   updateExpression: string;
+} & ({
   expressionAttributeValues: string;
   expressionAttributeFiles?: never;
   key: { [key: string]: any };
 } | {
-  updateExpression: string;
   expressionAttributeValues?: never;
   expressionAttributeFiles: string;
   key: { [key: string]: any };

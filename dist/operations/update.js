@@ -2,23 +2,22 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UpdateOperation = void 0;
 const Joi = require("joi");
-const fs = require("fs-extra");
+const fs_1 = require("fs");
 const helpers_1 = require("../helpers");
 const BaseInputSchema = Joi.object({
     operation: Joi.string().lowercase().valid("update").required(),
     region: Joi.string().lowercase().required(),
     table: Joi.string().required(),
+    updateExpression: Joi.string().required()
 });
 const InputSchema = Joi.alternatives([
     BaseInputSchema.append({
-        updateExpression: Joi.string().required(),
         expressionAttributeValues: Joi.string().required(),
         key: Joi.object().required(),
     }),
     BaseInputSchema.append({
-        updateExpression: Joi.string().required(),
         expressionAttributeFiles: Joi.string().required(),
-        key: Joi.string().required(),
+        key: Joi.object().required(),
     }),
 ]).required();
 class UpdateOperation {
@@ -47,7 +46,7 @@ class UpdateOperation {
         }).promise();
     }
     async read(path) {
-        const content = await fs.readFile(path, { encoding: "utf8" });
+        const content = await fs_1.promises.readFile(path, { encoding: "utf8" });
         return JSON.parse(content);
     }
 }
