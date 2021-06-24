@@ -17,8 +17,8 @@ const InputSchema = Joi.alternatives([
     }),
     BaseInputSchema.append({
         updateExpression: Joi.string().required(),
-        expressionAttributeValues: Joi.string().required(),
-        file: Joi.string().required(),
+        expressionAttributeFiles: Joi.string().required(),
+        key: Joi.string().required(),
     }),
 ]).required();
 class UpdateOperation {
@@ -36,13 +36,13 @@ class UpdateOperation {
     }
     async execute(input) {
         const ddb = helpers_1.createClient(input.region);
-        const item = input.key || await this.read(input.file);
+        const item = input.key || await this.read(input.expressionAttributeFiles);
         await ddb.update({
             TableName: input.table,
-            Key: item,
+            Key: input.key,
             UpdateExpression: `set ${input.updateExpression} = :${input.updateExpression}`,
             ExpressionAttributeValues: {
-                [`:${input.updateExpression}`]: `${input.expressionAttributeValues}`
+                [`:${input.updateExpression}`]: `${item}`
             }
         }).promise();
     }

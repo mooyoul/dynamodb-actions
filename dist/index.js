@@ -22,7 +22,8 @@ const processor = new processor_1.Processor();
         files: core.getInput("files"),
         // Update Operation
         updateExpression: core.getInput("updateExpression"),
-        expressionAttributeValues: core.getInput("expressionAttributeValues")
+        expressionAttributeValues: core.getInput("expressionAttributeValues"),
+        expressionAttributeFiles: core.getInput("expressionAttributeFiles")
     };
     const output = await processor.process(input);
     if (output) {
