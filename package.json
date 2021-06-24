@@ -33,6 +33,7 @@
     "@semantic-release/git": "9.0.0",
     "@semantic-release/release-notes-generator": "9.0.3",
     "@types/chai": "4.2.18",
+    "@types/fs-extra": "^9.0.11",
     "@types/hapi__joi": "17.1.6",
     "@types/joi": "14.3.4",
     "@types/mocha": "8.2.2",
@@ -51,6 +52,7 @@
     "@actions/glob": "^0.2.0",
     "aws-sdk": "^2.703.0",
     "build": "^0.1.4",
+    "fs-extra": "^10.0.0",
     "joi": "^17.4.0",
     "tsc": "^2.0.3"
   },
