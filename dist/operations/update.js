@@ -36,13 +36,21 @@ class UpdateOperation {
     async execute(input) {
         const ddb = helpers_1.createClient(input.region);
         const item = input.expressionAttributeValues || await this.read(input.expressionAttributeFiles);
+        let updateExp = `set`;
+        let attValues = {};
+        const updateExpressions = input.updateExpression.split(',');
+        const expAttValues = item.split(',');
+        for (let i = 0; i < updateExpressions.length; i++) {
+            updateExp.concat(` ${updateExpressions[i]} = :${updateExpressions[i]},`);
+            Object.defineProperty(attValues, `:${updateExp[i]}`, {
+                value: `${expAttValues[i]}`
+            });
+        }
         await ddb.update({
             TableName: input.table,
             Key: input.key,
-            UpdateExpression: `set ${input.updateExpression} = :${input.updateExpression}`,
-            ExpressionAttributeValues: {
-                [`:${input.updateExpression}`]: `${item}`
-            }
+            UpdateExpression: updateExp,
+            ExpressionAttributeValues: attValues
         }).promise();
     }
     async read(path) {
