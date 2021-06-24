@@ -44,7 +44,7 @@ inputs:
     description: 'Attribute values to be updated, Only required for update operation'
     required: false
   expressionAttributeFiles:
-    description: 'Attribute values to be updated, Only required for update operation'
+    description: 'Attribute files to be updated, Only required for update operation'
     required: false
 
 outputs:

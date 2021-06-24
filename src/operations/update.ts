@@ -54,7 +54,7 @@ export class UpdateOperation implements Operation<UpdateOperationInput> {
 
   public async execute(input: UpdateOperationInput) {
     const ddb = createClient(input.region);
-    const item = input.key || await this.read(input.expressionAttributeFiles!);
+    const item = input.expressionAttributeValues || await this.read(input.expressionAttributeFiles!);
     
     await ddb.update({
       TableName: input.table,

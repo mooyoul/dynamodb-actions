@@ -36,7 +36,7 @@ class UpdateOperation {
     }
     async execute(input) {
         const ddb = helpers_1.createClient(input.region);
-        const item = input.key || await this.read(input.expressionAttributeFiles);
+        const item = input.expressionAttributeValues || await this.read(input.expressionAttributeFiles);
         await ddb.update({
             TableName: input.table,
             Key: input.key,
