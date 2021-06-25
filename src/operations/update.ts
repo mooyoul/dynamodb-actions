@@ -58,11 +58,14 @@ export class UpdateOperation implements Operation<UpdateOperationInput> {
     const expressions = await this.buildExpression(updateExp, input);
     const attributes = await this.buildAttributes(expressions, attValues, input);
 
+    console.log(expressions);
+    console.log(attributes);
+
     await ddb.update({
       TableName: input.table,
       Key: input.key,
-      UpdateExpression: updateExp,
-      ExpressionAttributeValues: attValues
+      UpdateExpression: expressions,
+      ExpressionAttributeValues: attributes
     }).promise();
   }
 
@@ -113,7 +116,6 @@ export class UpdateOperation implements Operation<UpdateOperationInput> {
       attValues = Object.fromEntries(keyValues);
     }
 
-    console.log(attValues);
     return attValues;
   }
 }
