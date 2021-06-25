@@ -35,13 +35,10 @@ class UpdateOperation {
     }
     async execute(input) {
         const ddb = helpers_1.createClient(input.region);
-        const item = input.expressionAttributeValues || await this.read(input.expressionAttributeFiles);
         let updateExp = `set`;
         let attValues = {};
-        this.buildExpression(updateExp, input);
-        this.buildAttributes(updateExp, attValues, input);
-        console.log(updateExp);
-        console.log(attValues);
+        const expressions = await this.buildExpression(updateExp, input);
+        const attributes = await this.buildAttributes(expressions, attValues, input);
         await ddb.update({
             TableName: input.table,
             Key: input.key,
@@ -56,27 +53,37 @@ class UpdateOperation {
     async buildExpression(updateExp, input) {
         const updateExpressions = input.updateExpression.split(',');
         for (let i = 0; i < updateExpressions.length; i++) {
-            updateExp.concat(` ${updateExpressions[i]} = :${updateExpressions[i]},`);
+            if (i === updateExpressions.length - 1) {
+                updateExp = ''.concat(` ${updateExpressions[i]} = :${updateExpressions[i]}`);
+            }
+            else {
+                updateExp = ''.concat(` ${updateExpressions[i]} = :${updateExpressions[i]},`);
+            }
         }
         return updateExp;
     }
     async buildAttributes(updateExp, attValues, input) {
+        const updateExpressions = updateExp.split(',');
         if (input.expressionAttributeValues) {
-            const expAttValues = input.expressionAttributeValues.split(',');
-            for (let i = 0; i < expAttValues.length; i++) {
-                Object.defineProperty(attValues, `:${updateExp[i]}`, {
-                    value: `${expAttValues[i]}`
-                });
+            const expAttValues = input.expressionAttributeValues.split(', ');
+            const keyValues = [];
+            for (let i = 0; i < updateExpressions.length; i++) {
+                updateExpressions[i] = updateExpressions[i].substring(updateExpressions[i].indexOf(":"));
+                keyValues[i] = [updateExpressions[i], expAttValues[i]];
             }
+            attValues = Object.fromEntries(keyValues);
         }
         else if (input.expressionAttributeFiles) {
             const expAttValues = input.expressionAttributeFiles.split(',');
-            for (let i = 0; i < expAttValues.length; i++) {
-                Object.defineProperty(attValues, `:${updateExp[i]}`, {
-                    value: `${expAttValues[i]}`
-                });
+            const keyValues = [];
+            for (let i = 0; i < updateExpressions.length; i++) {
+                updateExpressions[i] = updateExpressions[i].substring(updateExpressions[i].indexOf(":"));
+                keyValues[i] = [updateExpressions[i], await this.read(expAttValues[i])];
             }
+            attValues = Object.fromEntries(keyValues);
         }
+        console.log(attValues);
+        return attValues;
     }
 }
 exports.UpdateOperation = UpdateOperation;
