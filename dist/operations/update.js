@@ -55,8 +55,11 @@ class UpdateOperation {
     async buildExpression(updateExp, input) {
         const updateExpressions = input.updateExpression.split(',');
         for (let i = 0; i < updateExpressions.length; i++) {
-            if (i === 0) {
-                updateExp = 'set '.concat(` ${updateExpressions[i]} = :${updateExpressions[i]},`);
+            if (i === 0 && updateExpressions.length > 1) {
+                updateExp = 'set'.concat(` ${updateExpressions[i]} = :${updateExpressions[i]},`);
+            }
+            else if (i === 0 && updateExpressions.length === 1) {
+                updateExp = 'set'.concat(` ${updateExpressions[i]} = :${updateExpressions[i]}`);
             }
             else if (i === updateExpressions.length - 1) {
                 updateExp = ''.concat(` ${updateExpressions[i]} = :${updateExpressions[i]}`);
