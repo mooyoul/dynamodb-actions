@@ -35,7 +35,7 @@ class UpdateOperation {
     }
     async execute(input) {
         const ddb = helpers_1.createClient(input.region);
-        let updateExp = `set`;
+        let updateExp = ``;
         let attValues = {};
         const expressions = await this.buildExpression(updateExp, input);
         const attributes = await this.buildAttributes(expressions, attValues, input);
@@ -55,7 +55,10 @@ class UpdateOperation {
     async buildExpression(updateExp, input) {
         const updateExpressions = input.updateExpression.split(',');
         for (let i = 0; i < updateExpressions.length; i++) {
-            if (i === updateExpressions.length - 1) {
+            if (i === 0) {
+                updateExp = 'set '.concat(` ${updateExpressions[i]} = :${updateExpressions[i]},`);
+            }
+            else if (i === updateExpressions.length - 1) {
                 updateExp = ''.concat(` ${updateExpressions[i]} = :${updateExpressions[i]}`);
             }
             else {

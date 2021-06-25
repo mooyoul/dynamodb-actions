@@ -52,7 +52,7 @@ export class UpdateOperation implements Operation<UpdateOperationInput> {
 
   public async execute(input: UpdateOperationInput) {
     const ddb = createClient(input.region);
-    let updateExp = `set`;
+    let updateExp = ``;
     let attValues = {};
 
     const expressions = await this.buildExpression(updateExp, input);
@@ -79,7 +79,10 @@ export class UpdateOperation implements Operation<UpdateOperationInput> {
     const updateExpressions = input.updateExpression.split(',');
 
     for(let i=0; i<updateExpressions.length; i++) {
-      if(i===updateExpressions.length-1){
+      if(i===0) {
+        updateExp = 'set '.concat(` ${updateExpressions[i]} = :${updateExpressions[i]},`);
+      }
+      else if(i===updateExpressions.length-1) {
         updateExp = ''.concat(` ${updateExpressions[i]} = :${updateExpressions[i]}`);
       }
       else {
