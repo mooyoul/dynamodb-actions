@@ -86,10 +86,10 @@ export class UpdateOperation implements Operation<UpdateOperationInput> {
         updateExp = `set ${updateExpressions[i]} = :${updateExpressions[i]}`;
       }
       else if(i===updateExpressions.length-1) {
-        updateExp = updateExp.concat(` ${updateExpressions[i]} = :${updateExpressions[i]}`);
+        updateExp += ` ${updateExpressions[i]} = :${updateExpressions[i]}`;
       }
       else {
-        updateExp = updateExp.concat(` ${updateExpressions[i]} = :${updateExpressions[i]},`);
+        updateExp += ` ${updateExpressions[i]} = :${updateExpressions[i]},`;
       }
     }
 
