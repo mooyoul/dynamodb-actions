@@ -263,8 +263,6 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
       - name: Delete DynamoDB Item
         uses: mooyoul/dynamodb-actions@v1.2.1
         env:
