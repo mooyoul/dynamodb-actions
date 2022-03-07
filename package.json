@@ -38,7 +38,7 @@
     "@types/mocha": "8.2.3",
     "@types/node": "12.20.28",
     "chai": "4.3.4",
-    "execa": "4.1.0",
+    "execa": "6.1.0",
     "husky": "4.3.8",
     "mocha": "8.4.0",
     "semantic-release": "17.4.7",
